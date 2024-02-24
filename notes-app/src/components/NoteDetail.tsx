@@ -8,9 +8,7 @@ const NoteDetail = ({ currentNote, notes, setNotes, setActivePage }) => {
 
     console.log('Saving note:', note);
 
-    setNotes(notes.map(n => {
-      n.id === note.id ? note : n;
-    }));
+    setNotes(notes.map(n => (n.id === note.id ? note : n)));
     setActivePage('notesList');
   };
 

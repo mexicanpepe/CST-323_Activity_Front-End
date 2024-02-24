@@ -1,12 +1,10 @@
 const NotesList = ({ notes, setNotes, setCurrentNote, setActivePage }) => {
 
   const addNote = () => {
-
     const newNote = { title: '', content: '', id: Date.now() };
     setCurrentNote(newNote);
     setActivePage('noteDetail');
-    setNotes([...notes, newNote])
-    console.log(notes);
+    setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
   const noteSelect = (note) => {
@@ -27,7 +25,7 @@ const NotesList = ({ notes, setNotes, setCurrentNote, setActivePage }) => {
         ))}
       </ul>
       <button className="btn btn-primary" onClick={addNote}>
-        Add Note
+        Add New Note
       </button>
     </div>
   );
