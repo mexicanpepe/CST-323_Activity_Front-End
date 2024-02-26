@@ -8,18 +8,19 @@ const App = () => {
   const [activePage, setActivePage] = useState('login');
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(null);
+  const [userInformation, setUserInformation] = useState({username: '', email: '', password: ''});
 
 
   return (
     <div>
       {activePage === 'login' && (
-        <Login setActivePage={setActivePage}/>
+        <Login setActivePage={setActivePage} userInformation={userInformation}setUserInformation={setUserInformation} setNotes={setNotes}/>
       )}
       {activePage === 'notesList' && (
         <NotesList notes={notes} setNotes={setNotes} setCurrentNote={setCurrentNote} setActivePage={setActivePage}/>
       )}
       {activePage === 'noteDetail' && currentNote && (
-        <NoteDetail currentNote={currentNote} notes={notes} setNotes={setNotes} setActivePage={setActivePage}  />
+        <NoteDetail currentNote={currentNote} notes={notes} setNotes={setNotes} setActivePage={setActivePage} userInformation={userInformation} />
       )}
     </div>
   );

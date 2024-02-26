@@ -1,22 +1,47 @@
+import axios from "axios";
 import { useState } from "react";
 
-const NoteDetail = ({ currentNote, notes, setNotes, setActivePage }) => {
+const NoteDetail = ({ currentNote, notes, setNotes, setActivePage, userInformation }) => {
   const [title, setTitle] = useState(currentNote.title);
   const [content, setContent] = useState(currentNote.content);
 
-  const handleSave = (note) => {
+  const handleSave = async (note) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/notes/${userInformation.userId}`, note);
 
-    console.log('Saving note:', note);
+      if (response.status === 200) {
+        console.log("Note saved successfully:", note);
+        setNotes([...notes, note]);
+        setActivePage("notesList");
 
-    setNotes(notes.map(n => (n.id === note.id ? note : n)));
-    setActivePage('notesList');
+      } else {
+        console.log("Failed to save note:", note);
+      }
+    } catch (error) {
+      console.log("Error saving note:", error);
+      console.log("Thisis the note being passed in: ", note);
+    }
   };
 
-  const handleDelete = (noteToDelete) => {
+  const handleDelete = async (noteToDelete) => {
     console.log('Deleting note:', noteToDelete);
-    setNotes(notes.filter(note => note.id !== noteToDelete.id));
-    setActivePage('notesList');
+
+    try {
+      const response = await axios.delete(`http://localhost:8080/notes/${userInformation.userId}/${noteToDelete.noteId}`);
+
+      if (response.status === 200) {
+        console.log("Note deleted successfully:", noteToDelete);
+        setNotes(notes.filter(note => note.id !== noteToDelete.id));
+        setActivePage('notesList');
+
+      } else {
+        console.log("Failed to delete note:", noteToDelete);
+      }
+    } catch (error) {
+      console.log("Error deleting note:", error);
+    }
   };
+
 
   return (
     <div className="container">
@@ -31,7 +56,7 @@ const NoteDetail = ({ currentNote, notes, setNotes, setActivePage }) => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
-      <button className="btn btn-success" onClick={() => handleSave({ ...currentNote, title, content })}>
+      <button className="btn btn-success" onClick={() => handleSave({ ...currentNote, title, content})}>
         Save
       </button>
       <button className="btn btn-danger" onClick={() => handleDelete(currentNote)}>
