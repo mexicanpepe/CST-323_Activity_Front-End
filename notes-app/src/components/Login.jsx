@@ -1,13 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
-
 
 const Login = ({setActivePage, userInformation, setUserInformation, setNotes}) => {
 
   const handleLogin = async (userData) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/authentication/login",
+        "http://Activity-backend-env.eba-ekxv5yww.us-east-1.elasticbeanstalk.com/api/authentication/login",
         userData
       );
 
@@ -29,7 +27,7 @@ const Login = ({setActivePage, userInformation, setUserInformation, setNotes}) =
 
   const fetchNotes = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/notes/${userId}`);
+      const response = await axios.get(`http://Activity-backend-env.eba-ekxv5yww.us-east-1.elasticbeanstalk.com/notes/${userId}`);
 
       if (response.status === 200) {
         console.log("Notes fetched successfully:", response.data);
@@ -45,7 +43,7 @@ const Login = ({setActivePage, userInformation, setUserInformation, setNotes}) =
   const createAccount = async (userData) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/users",
+        "http://Activity-backend-env.eba-ekxv5yww.us-east-1.elasticbeanstalk.com/users",
         userData
       );
 

@@ -7,7 +7,7 @@ const NoteDetail = ({ currentNote, notes, setNotes, setActivePage, userInformati
 
   const handleSave = async (note) => {
     try {
-      const response = await axios.post(`http://localhost:8080/notes/${userInformation.userId}`, note);
+      const response = await axios.post(`http://Activity-backend-env.eba-ekxv5yww.us-east-1.elasticbeanstalk.com/${userInformation.userId}`, note);
 
       if (response.status === 200) {
         console.log("Note saved successfully:", note);
@@ -27,7 +27,7 @@ const NoteDetail = ({ currentNote, notes, setNotes, setActivePage, userInformati
     console.log('Deleting note:', noteToDelete);
 
     try {
-      const response = await axios.delete(`http://localhost:8080/notes/${userInformation.userId}/${noteToDelete.noteId}`);
+      const response = await axios.delete(`http://Activity-backend-env.eba-ekxv5yww.us-east-1.elasticbeanstalk.com/notes/${userInformation.userId}/${noteToDelete.noteId}`);
 
       if (response.status === 200) {
         console.log("Note deleted successfully:", noteToDelete);
